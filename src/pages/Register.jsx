@@ -15,7 +15,7 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { t } = useLanguage(); // Use hook
+    const { t, language, setLanguage } = useLanguage(); // Use hook
 
     const handleChange = (e) => {
         setFormData({
@@ -57,7 +57,19 @@ const Register = () => {
     };
 
     return (
-        <div className="auth-container">
+        <div className="auth-page">
+            <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+                <select
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    className="lang-select"
+                >
+                    <option value="uz">O'zbek</option>
+                    <option value="ru">Русский</option>
+                    <option value="kaa">Qaraqalpaq</option>
+                </select>
+            </div>
+
             <div className="auth-card">
                 <h2>{t('register')}</h2>
                 {error && <div className="error-message">{error}</div>}
@@ -70,6 +82,7 @@ const Register = () => {
                             value={formData.fullname}
                             onChange={handleChange}
                             required
+                            className="auth-input"
                         />
                     </div>
 
@@ -81,6 +94,7 @@ const Register = () => {
                             value={formData.username}
                             onChange={handleChange}
                             required
+                            className="auth-input"
                         />
                     </div>
 
@@ -92,18 +106,19 @@ const Register = () => {
                             value={formData.password}
                             onChange={handleChange}
                             required
+                            className="auth-input"
                         />
                     </div>
 
                     {error && <div className="error-message">{error}</div>}
 
                     <button type="submit" className="login-btn" disabled={loading}>
-                        {loading ? 'Yuborilmoqda...' : "Ro'yxatdan o'tish"}
+                        {loading ? t('loading') : t('submit')}
                     </button>
                 </form>
 
                 <p className="auth-footer">
-                    Hisobingiz bormi? <Link to="/login">Kirish</Link>
+                    {t('have_account')} <Link to="/login">{t('enter')}</Link>
                 </p>
             </div>
         </div>

@@ -23,19 +23,22 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         return new Promise((resolve, reject) => {
-            Papa.parse(USERS_SHEET_CSV_URL, {
+            // Cache busting uchun timestamp qo'shamiz
+            const cacheBuster = `&t=${new Date().getTime()}`;
+            const fetchUrl = USERS_SHEET_CSV_URL + cacheBuster;
+
+            Papa.parse(fetchUrl, {
                 download: true,
-                header: false, // Header yo'q deb faraz qilamiz yoki 1-qatorni tashlab o'tamiz
+                header: false,
                 skipEmptyLines: true,
                 complete: (results) => {
                     const rows = results.data;
-                    // 1-qator sarlavha deb hisoblaymiz (Username, Password, Fullname)
-                    const dataRows = rows.slice(1);
+                    const dataRows = rows.slice(1); // Header ni tashlab yuboramiz
 
                     const foundUser = dataRows.find(row => {
-                        // CSV da ustunlar tartibi: 0=Username, 1=Password, 2=Fullname
-                        const sheetUsername = row[0]?.trim();
-                        const sheetPassword = row[1]?.trim();
+                        const sheetUsername = row[0]?.toString().trim(); // Stringga o'tkazib trim qilamiz
+                        const sheetPassword = row[1]?.toString().trim();
+                        // Qat'iy tenglik tekshiruvi
                         return sheetUsername === username && sheetPassword === password;
                     });
 
@@ -48,11 +51,13 @@ export const AuthProvider = ({ children }) => {
                         localStorage.setItem('music_dictionary_user', JSON.stringify(userData));
                         resolve(userData);
                     } else {
-                        reject(new Error("Login yoki parol noto'g'ri"));
+                        // Xatolik emas, shunchaki topilmadi -> false qaytaramiz
+                        resolve(false);
                     }
                 },
                 error: (err) => {
-                    reject(new Error("Tarmoq xatoligi yoki jadval topilmadi"));
+                    console.error("CSV Parse Error:", err);
+                    resolve(false); // Tarmoq xatosida ham false beramiz, Login.jsx "xato" deb ko'rsatadi
                 }
             });
         });

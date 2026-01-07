@@ -28,7 +28,11 @@ const translations = {
         enter: "Kirish",
         register_action: "Ro'yxatdan o'tish",
         term_def_label: "Izoh",
-        composers_title: "Mashhur Kompozitorlar"
+        composers_title: "Mashhur Kompozitorlar",
+        registration_success_message: "Muvaffaqiyatli ro'yxatdan o'tdingiz!",
+        registration_error_message: "Ro'yxatdan o'tishda xatolik yuz berdi.",
+        login_or_password_incorrect: "Login yoki parol noto'g'ri",
+        system_error_occurred: "Tizimda xatolik yuz berdi"
     },
     ru: {
         login: "Вход",
@@ -55,7 +59,11 @@ const translations = {
         enter: "Войти",
         register_action: "Зарегистрироваться",
         term_def_label: "Описание",
-        composers_title: "Известные Композиторы"
+        composers_title: "Известные Композиторы",
+        registration_success_message: "Вы успешно зарегистрировались!",
+        registration_error_message: "Ошибка при регистрации.",
+        login_or_password_incorrect: "Неверный логин или пароль",
+        system_error_occurred: "Произошла системная ошибка"
     },
     kaa: {
         login: "Kiriw",
@@ -82,7 +90,11 @@ const translations = {
         enter: "Kiriw",
         register_action: "Dizimnen o'tiw",
         term_def_label: "Túsindirme",
-        composers_title: "Belgili Kompozitorlar"
+        composers_title: "Belgili Kompozitorlar",
+        registration_success_message: "Tabisli dizimnen o'ttińiz!",
+        registration_error_message: "Dizimnen o'tiwde qátelik boldı.",
+        login_or_password_incorrect: "Login yaki parol qáte",
+        system_error_occurred: "Sistemada qátelik boldı"
     }
 };
 
