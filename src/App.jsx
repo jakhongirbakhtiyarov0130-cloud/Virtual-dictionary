@@ -175,6 +175,7 @@ function App() {
 
       <footer className="main-footer">
         <p className="creator-credit">Creator: Baxtiyarov Jahongir</p>
+        <p className="creator-credit">Developer: Nurbek Sobirov</p>
       </footer>
     </div>
   );
