@@ -1,56 +1,48 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import { Link } from 'react-router-dom';
+import '../App.css';
 
-const Login = () => {
+function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [loggingIn, setLoggingIn] = useState(false);
     const { login } = useAuth();
-    const navigate = useNavigate();
+    const { t } = useLanguage();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoggingIn(true);
         setError('');
-
         try {
-            await login(username, password);
-            navigate('/'); // Muvaffaqiyatli kirgandan so'ng asosiy sahifaga yo'naltirish
+            const success = await login(username, password);
+            if (!success) {
+                setError(t('login_or_password_incorrect'));
+            }
         } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoggingIn(false);
+            setError(t('system_error_occurred'));
         }
     };
 
     return (
-        <div className="app-container auth-page">
-            <div className="bg-blob blob-1"></div>
-            <div className="bg-blob blob-2"></div>
-
+        <div className="auth-container">
             <div className="auth-card">
-                <h1>Kirish</h1>
+                <h2>{t('login')}</h2>
+                {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Foydalanuvchi nomi</label>
+                        <label>{t('username')}</label>
                         <input
                             type="text"
-                            id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
-                            className="search-input" // Reuse existing input style
-                            placeholder="Username"
                         />
                     </div>
-
                     <div className="form-group">
-                        <label htmlFor="password">Parol</label>
+                        <label>{t('password')}</label>
                         <input
                             type="password"
-                            id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required

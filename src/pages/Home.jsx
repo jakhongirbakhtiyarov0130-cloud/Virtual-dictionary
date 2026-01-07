@@ -1,30 +1,40 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Papa from 'papaparse';
-import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import '../App.css';
 
+
+import Logo from "/images/logo.png"
+
 const SHEET_ID = '1EplZnqMhRJHS2XBqr00Qjpl8-iaXMDRKhMCL3E3Y2ts';
-// Using GVIZ strictly
 const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=MusiqaLugati`;
-// Analitika sheeti
 const ANALYTICS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=analitika%20web`;
-// Script URL (Register sahifasidan nusxalab oling yoki contextga o'tkazish kerak)
-// Hozircha hardcode qilamiz, lekin eng yaxshisi bu env yoki contextda turishi kerak
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyemAthfI7hbmhs1_K7MADxYxfxro0zdRCCnqrdw5VKqZlgb1MX4LzNL3p6JISAwEoU/exec";
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyemAthfI7hbmhs1_K7MADxYxfxro0zdRCCnqrdw5VKqZlgb1MX4LzNL3p6JISAwEoU/exec';
 
 const TermCard = ({ term }) => {
+    const { language, t } = useLanguage();
+
     const handleSpeak = (e) => {
         e.stopPropagation();
-        // Agar oldin gapirayotgan bo'lsa to'xtatish
         window.speechSynthesis.cancel();
-
         const utterance = new SpeechSynthesisUtterance(term.atama);
-        // Tilini inglizchaga sozlaymiz, shunda to'g'ri o'qiydi
         utterance.lang = 'en-US';
-        utterance.rate = 0.8; // Biroz sekinroq, tushunarli bo'lishi uchun
+        utterance.rate = 0.8;
         window.speechSynthesis.speak(utterance);
     };
+
+    const getDefinition = () => {
+        switch (language) {
+            case 'uz': return term.manosi_uz || term["ma'nosi"] || term.manosi_ru;
+            case 'kaa': return term.manosi_kaa || term.manosi_uz || term.manosi_ru;
+            case 'ru': return term.manosi_ru;
+            default: return term.manosi_uz;
+        }
+    };
+
+    const definition = getDefinition();
 
     return (
         <div className="term-card">
@@ -33,36 +43,22 @@ const TermCard = ({ term }) => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <button
                         onClick={handleSpeak}
-                        title="Talaffuzni eshitish"
-                        style={{
-                            background: 'var(--glass-border)',
-                            border: 'none',
-                            cursor: 'pointer',
-                            borderRadius: '50%',
-                            width: '32px',
-                            height: '32px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--accent-color)',
-                            transition: 'transform 0.2s'
-                        }}
-                        onMouseEnter={(e) => e.target.style.transform = 'scale(1.1)'}
-                        onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                        title={t('listen')}
+                        className="speak-btn"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                        </svg>
+                        🔊
                     </button>
                     <span className="term-id">#{term.id}</span>
                 </div>
             </div>
             <div className="term-body">
-                <p>{term["ma'nosi"]}</p>
+                <div style={{ marginBottom: '10px' }}>
+                    <span style={{ fontWeight: '500', fontSize: '1.1rem' }}>{definition || "-"}</span>
+                </div>
+
                 {term.rasm_url && (
-                    <div className="term-image-container" style={{ marginTop: '10px' }}>
-                        <img src={term.rasm_url} alt={term.atama} style={{ maxWidth: '100%', borderRadius: '8px' }} onError={(e) => e.target.style.display = 'none'} />
+                    <div className="term-image-container" style={{ marginTop: '15px' }}>
+                        <img src={term.rasm_url} alt={term.atama} className="term-image" onError={(e) => e.target.style.display = 'none'} />
                     </div>
                 )}
             </div>
@@ -70,9 +66,9 @@ const TermCard = ({ term }) => {
     );
 };
 
-// Trenddagi so'zlar komponenti
 const TrendingTerms = () => {
     const [trends, setTrends] = useState([]);
+    const { t } = useLanguage();
 
     useEffect(() => {
         Papa.parse(ANALYTICS_CSV_URL, {
@@ -81,13 +77,12 @@ const TrendingTerms = () => {
             skipEmptyLines: true,
             complete: (results) => {
                 if (results.data && results.data.length > 1) {
-                    const rawRows = results.data.slice(1); // Header tashlanadi
-                    // Formatlash: [So'z, Sanoq]
+                    const rawRows = results.data.slice(1);
                     const formatted = rawRows.map(row => ({
                         term: row[0],
                         count: parseInt(row[1] || 0)
-                    })).sort((a, b) => b.count - a.count) // Eng ko'p qidirilganlar tepadaga
-                        .slice(0, 5); // Faqat TOP 5
+                    })).sort((a, b) => b.count - a.count)
+                        .slice(0, 5);
 
                     setTrends(formatted);
                 }
@@ -99,7 +94,7 @@ const TrendingTerms = () => {
 
     return (
         <div className="trending-container" style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem', fontSize: '0.9rem' }}>🔥 Ko'p qidirilgan:</p>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem', fontSize: '0.9rem' }}>🔥 {t('trending')}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
                 {trends.map((t, index) => (
                     <span key={index} style={{
@@ -125,14 +120,13 @@ function Home() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
+    const { language, setLanguage, t } = useLanguage();
 
-    // Apply theme to document element
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
-    // Fetch data
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -146,191 +140,138 @@ function Home() {
                             const formattedData = rawRows.map((row, index) => {
                                 if (row.length < 2) return null;
                                 const atama = row[0];
-                                const manosi = row[1];
+                                const manosi_ru = row[1];
                                 const rasm = row[2];
-                                if (!atama || !manosi) return null;
+                                const manosi_uz = row[3];
+                                const manosi_kaa = row[4];
+
+                                if (!atama) return null;
                                 return {
                                     id: index + 1,
                                     atama: atama.trim(),
-                                    "ma'nosi": manosi.trim(),
-                                    rasm_url: rasm || ""
+                                    manosi_ru: manosi_ru ? manosi_ru.trim() : "",
+                                    rasm_url: rasm || "",
+                                    manosi_uz: manosi_uz ? manosi_uz.trim() : "",
+                                    manosi_kaa: manosi_kaa ? manosi_kaa.trim() : ""
                                 };
                             }).filter(item => item !== null);
 
                             setTerms(formattedData);
-                            if (formattedData.length === 0) setError("Jadvalda ma'lumot topilmadi");
+                            if (formattedData.length === 0) setError(t('error_empty'));
                         } else {
-                            setError("Jadval bo'sh yoki yuklanmadi.");
+                            setError(t('error_empty'));
                         }
                         setLoading(false);
                     },
                     error: (err) => {
                         console.error(err);
-                        setError("Jadvalni yuklab bo'lmadi.");
+                        setError(t('error_fetch'));
                         setLoading(false);
                     }
                 });
             } catch (err) {
                 console.error(err);
-                setError("Dasturiy xatolik.");
+                setError(t('error_fetch'));
                 setLoading(false);
             }
         };
         fetchData();
-    }, []);
+    }, [t]);
 
-    // Search Tracking Logic (Debounce)
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            if (search.length > 2) { // 3 ta harfdan oshsa yuborish
+        const timer = setTimeout(() => {
+            if (search.length > 3) {
                 fetch(SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'search', term: search })
-                }).catch(err => console.error("Search tracking error", err));
+                }).catch(err => console.error("Tracking error", err));
             }
-        }, 2000); // Foydalanuvchi yozib bo'lgach 2 soniyadan keyin yuborish
-
-        return () => clearTimeout(delayDebounceFn);
+        }, 2000);
+        return () => clearTimeout(timer);
     }, [search]);
-
-
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    };
 
     const filteredTerms = useMemo(() => {
         return terms.filter(t =>
             t.atama?.toLowerCase().includes(search.toLowerCase()) ||
-            t["ma'nosi"]?.toLowerCase().includes(search.toLowerCase())
+            t.manosi_ru?.toLowerCase().includes(search.toLowerCase()) ||
+            t.manosi_uz?.toLowerCase().includes(search.toLowerCase()) ||
+            t.manosi_kaa?.toLowerCase().includes(search.toLowerCase())
         );
     }, [search, terms]);
 
     return (
-        <div className="app-container">
-            <div className="bg-blob blob-1"></div>
-            <div className="bg-blob blob-2"></div>
-            <div className="bg-blob blob-3"></div>
-
-            <nav style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '1.5rem 2rem',
-                position: 'relative',
-                zIndex: 200
-            }}>
-                {/* Chap tomon: Profil */}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {user && (
-                        <Link to="/profile" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <div style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                                background: 'linear-gradient(135deg, var(--gradient-1), var(--gradient-2))',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: '1rem',
-                                boxShadow: '0 2px 5px var(--shadow-color)'
-                            }}>
-                                {user.fullname ? user.fullname.charAt(0).toUpperCase() : 'U'}
+        <div className="container">
+            {/* Header */}
+            <header className="header">
+                <nav className="nav-container">
+                    <div className="nav-left">
+                        <Link to="/profile" className="profile-link">
+                            <div className="avatar-circle">
+                                {user?.fullname?.charAt(0).toUpperCase() || "U"}
                             </div>
-                            <span className="profile-name" style={{ color: 'var(--text-primary)', fontWeight: 'bold' }}>{user.fullname}</span>
+                            <span className="profile-name">{user?.fullname?.split(' ')[0]}</span>
                         </Link>
-                    )}
+                    </div>
+
+                    <div className="nav-right">
+                        {/* Language Switcher */}
+                        <select
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value)}
+                            className="lang-select"
+                        >
+                            <option value="uz">O'zbek</option>
+                            <option value="ru">Русский</option>
+                            <option value="kaa">Qaraqalpaq</option>
+                        </select>
+
+                        <Link to="/composers" className="nav-link">
+                            🎵 {t('composers')}
+                        </Link>
+
+                        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="theme-toggle">
+                            {theme === 'light' ? '🌙' : '☀️'}
+                        </button>
+                    </div>
+                </nav>
+
+                <div className="title-wrapper">
+                    <img src={Logo} alt="Logo" className="site-logo" />
+                    <h1 className="title">Virtual Musiqa Lug'ati</h1>
                 </div>
-
-                {/* O'ng tomon: Menu va Theme */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                    <Link to="/composers" style={{
-                        textDecoration: 'none',
-                        color: 'var(--text-secondary)',
-                        fontWeight: '500',
-                        fontSize: '1rem',
-                        transition: 'color 0.2s',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px'
-                    }} className="nav-link">
-                        🎵 Kompozitorlar
-                    </Link>
-
-                    <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme" style={{ position: 'static', margin: 0 }}>
-                        {theme === 'light' ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                            </svg>
-                        ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="5"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                                <line x1="1" y1="12" x2="3" y2="12"></line>
-                                <line x1="21" y1="12" x2="23" y2="12"></line>
-                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                            </svg>
-                        )}
-                    </button>
-                </div>
-            </nav>
-
-            <header className="main-header">
-                <h1>Virtual Musiqa Lug'ati</h1>
-                <p>Musiqiy atamalar va ularning izohlari</p>
-
 
                 <div className="search-container">
                     <input
                         type="text"
-                        placeholder="Atama yoki ma'noni qidiring..."
+                        placeholder={t('search_placeholder')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="search-input"
-                        autoFocus
                     />
-                    <div className="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
                 </div>
             </header>
 
-            {/* NEW: Trending Terms Section */}
-            <TrendingTerms />
+            <main className="main-content">
+                <TrendingTerms />
 
-            <main className="terms-grid">
-                {loading ? (
-                    <div className="no-results"><p>Yuklanmoqda...</p></div>
-                ) : error ? (
-                    <div className="no-results" style={{ color: 'red', flexDirection: 'column' }}>
-                        <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Xatolik yuz berdi!</p>
-                        <p>{error}</p>
-                    </div>
-                ) : filteredTerms.length > 0 ? (
-                    filteredTerms.map(term => (
-                        <TermCard key={term.id} term={term} />
-                    ))
-                ) : (
-                    <div className="no-results">
-                        <p>Hech qanday natija topilmadi</p>
-                    </div>
-                )}
+                <div className="terms-grid">
+                    {loading ? (
+                        <p className="loading">{t('loading')}</p>
+                    ) : error ? (
+                        <p className="error">{error}</p>
+                    ) : filteredTerms.length > 0 ? (
+                        filteredTerms.map(term => (
+                            <TermCard key={term.id} term={term} />
+                        ))
+                    ) : (
+                        <div className="no-results">
+                            <p>{t('no_results')}</p>
+                        </div>
+                    )}
+                </div>
             </main>
-
-            <footer className="main-footer">
-                <p className="creator-credit">Creator: Baxtiyarov Jahongir</p>
-                <p className="creator-credit">Developer: Nurbek Sobirov</p>
-            </footer>
         </div>
     );
 }

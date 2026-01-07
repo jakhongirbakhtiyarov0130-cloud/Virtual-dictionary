@@ -1,101 +1,97 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext'; // Import hook
+import '../App.css';
 
 const Register = () => {
     // MUHIM: Bu yerga Google Apps Script Deploy qilingan URL ni qo'ying
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyemAthfI7hbmhs1_K7MADxYxfxro0zdRCCnqrdw5VKqZlgb1MX4LzNL3p6JISAwEoU/exec";
 
     const [formData, setFormData] = useState({
+        fullname: '',
         username: '',
-        password: '',
-        fullname: ''
+        password: ''
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { t } = useLanguage(); // Use hook
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (SCRIPT_URL === "SIZNING_SCRIPT_URL_MANZILINGIZ") {
-            setError("Iltimos, dasturchi bilan bog'laning (Script URL kiritilmagan)");
-            return;
-        }
-
         setLoading(true);
         setError('');
 
         try {
             // no-cors rejimi Google Sheets ga yozish uchun kerak, lekin javobni o'qiy olmaymiz
             // Shuning uchun biz muvaffaqiyatli deb hisoblab ketaveramiz yoki redirect qilamiz
-            await fetch(SCRIPT_URL, {
+            const response = await fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                mode: 'no-cors', // Muhim: CORS muammosini oldini olish uchun
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, action: 'register' })
+                body: JSON.stringify({
+                    action: 'register',
+                    ...formData
+                })
             });
 
             // Muvaffaqiyatli hisoblab Login sahifasiga yo'naltiramiz
-            alert("So'rov yuborildi! Agar ma'lumotlar to'g'ri bo'lsa, birozdan so'ng Login qilishingiz mumkin.");
+            alert(t("registration_success_message"));
             navigate('/login');
 
         } catch (err) {
             console.error(err);
-            setError("Xatolik yuz berdi. Internetni tekshiring.");
+            setError(t("registration_error_message"));
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="app-container auth-page">
-            <div className="bg-blob blob-1"></div>
-            <div className="bg-blob blob-3"></div>
-
+        <div className="auth-container">
             <div className="auth-card">
-                <h1>Ro'yxatdan o'tish</h1>
+                <h2>{t('register')}</h2>
+                {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="fullname">To'liq ismingiz</label>
+                        <label>{t('fullname')}</label>
                         <input
                             type="text"
-                            id="fullname"
+                            name="fullname"
                             value={formData.fullname}
                             onChange={handleChange}
                             required
-                            className="search-input"
-                            placeholder="Ism Familiya"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="username">Foydalanuvchi nomi (Login)</label>
+                        <label>{t('username')}</label>
                         <input
                             type="text"
-                            id="username"
+                            name="username"
                             value={formData.username}
                             onChange={handleChange}
                             required
-                            className="search-input"
-                            placeholder="Username"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">Parol</label>
+                        <label>{t('password')}</label>
                         <input
                             type="password"
-                            id="password"
+                            name="password"
                             value={formData.password}
                             onChange={handleChange}
                             required
-                            className="search-input"
-                            placeholder="********"
                         />
                     </div>
 

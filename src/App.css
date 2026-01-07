@@ -57,6 +57,7 @@
   font-weight: 800;
   margin-bottom: 0.5rem;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
@@ -219,6 +220,7 @@
   font-weight: 500;
   letter-spacing: 0.5px;
   background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   opacity: 0.8;
@@ -470,6 +472,7 @@
     opacity: 0.1;
   }
 }
+
 /* Stickman & Rope Animation */
 .stickman-container {
   position: fixed;
@@ -487,7 +490,10 @@
   overflow: visible;
 }
 
-.stickman-body, .stickman-head, .stickman-arm-fixed, .stickman-leg {
+.stickman-body,
+.stickman-head,
+.stickman-arm-fixed,
+.stickman-leg {
   stroke: var(--text-primary);
   stroke-width: 4;
   fill: none;
@@ -495,7 +501,8 @@
 }
 
 .stickman-head {
-  fill: var(--bg-card); /* Fill head to cover rope if needed */
+  fill: var(--bg-card);
+  /* Fill head to cover rope if needed */
 }
 
 /* Rope Line */
@@ -504,7 +511,8 @@
   stroke-width: 2;
   fill: none;
   stroke-dasharray: 600;
-  stroke-dashoffset: 600; /* Hidden initially */
+  stroke-dashoffset: 600;
+  /* Hidden initially */
   opacity: 0;
 }
 
@@ -521,33 +529,74 @@
 
 /* Animations */
 @keyframes throwRope {
-  0% { stroke-dashoffset: 600; opacity: 1; d: path('M 75 100 Q 100 50 400 -200'); } 
-  50% { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 600;
+    opacity: 1;
+    d: path('M 75 100 Q 100 50 400 -200');
+  }
+
+  50% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes pullRope {
-  0% { stroke-dashoffset: 0; d: path('M 75 100 Q 100 50 400 -200'); }
-  100% { stroke-dashoffset: 600; d: path('M 75 100 Q 80 80 75 100'); } /* Pulls back to hand */
+  0% {
+    stroke-dashoffset: 0;
+    d: path('M 75 100 Q 100 50 400 -200');
+  }
+
+  100% {
+    stroke-dashoffset: 600;
+    d: path('M 75 100 Q 80 80 75 100');
+  }
+
+  /* Pulls back to hand */
 }
 
 @keyframes armThrow {
-  0% { transform: rotate(0deg); transform-origin: 75px 75px; }
-  20% { transform: rotate(-45deg); } /* Wind up */
-  50% { transform: rotate(45deg); } /* Throw */
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+    transform-origin: 75px 75px;
+  }
+
+  20% {
+    transform: rotate(-45deg);
+  }
+
+  /* Wind up */
+  50% {
+    transform: rotate(45deg);
+  }
+
+  /* Throw */
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 
 /* Animation for pulled term */
 @keyframes termPull {
-  0% { transform: translate(300px, -200px) scale(1); opacity: 1; }
-  100% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  0% {
+    transform: translate(300px, -200px) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0;
+  }
 }
 
 .caught-term {
   position: absolute;
-  top: 60px; /* Near stickman hand roughly */
+  top: 60px;
+  /* Near stickman hand roughly */
   left: 100px;
   font-weight: bold;
   color: var(--accent-color);
@@ -558,15 +607,177 @@
 
 /* Term Throw Animation */
 @keyframes termThrow {
-  0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
-  20% { transform: translate(-50px, -50px) scale(0.8); opacity: 1; }
-  100% { transform: translate(-400px, -100px) rotate(-720deg) scale(0); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translate(-50px, -50px) scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-400px, -100px) rotate(-720deg) scale(0);
+    opacity: 0;
+  }
 }
 
 
 /* Leg Movement Animation */
 @keyframes legMove {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(20deg); } /* Wiggle legs */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(20deg);
+  }
+
+  /* Wiggle legs */
 }
 
+
+/* Language Select */
+.lang-select {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.lang-select:hover {
+  background: var(--glass-border);
+}
+
+.speak-btn {
+  background: var(--glass-border);
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: transform 0.2s;
+}
+
+.speak-btn:hover {
+  transform: scale(1.1);
+}
+
+
+/* New Header Styles */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  /* Light mode default */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 2px 10px var(--shadow-color);
+  transition: background 0.3s;
+  padding-bottom: 1.5rem;
+  /* Added padding */
+}
+
+[data-theme='dark'] .header {
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem;
+  /* Reduced padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 30px;
+  transition: background 0.2s;
+}
+
+.profile-link:hover {
+  background: var(--glass-border);
+}
+
+.avatar-circle {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 1.5rem 0;
+}
+
+.site-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px var(--shadow-color));
+}
+
+.title {
+  text-align: left;
+  /* Reset to left if needed, or keep center for wrapper */
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  /* Remove margin since wrapper handles it */
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-link:hover {
+  color: var(--accent-color);
+}
