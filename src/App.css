@@ -1,0 +1,300 @@
+/* Layout */
+.app-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 1.5rem;
+  right: 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  z-index: 200; /* Higher than header */
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg) scale(1.1);
+  background: var(--accent-color);
+  color: white;
+  border-color: transparent;
+}
+
+/* Header & Search */
+.main-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  
+  /* Sticky Styles */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--card-bg); /* Use semi-transparent theme variable */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.main-header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+.main-header p {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1.25rem 3.5rem 1.25rem 1.75rem;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.search-input:focus {
+  outline: none;
+  background: var(--input-focus-bg);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.search-icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+/* Terms Grid */
+.terms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding-bottom: 4rem;
+  padding-top: 1rem; /* Added gap between header and grid */
+}
+
+.term-card {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.term-card:hover {
+  transform: translateY(-5px);
+  background: var(--card-bg); /* Keep transparent but allow filters */
+  border-color: var(--accent-color);
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+/* Specific fix for card content on hover in dark vs light mode */
+[data-theme='dark'] .term-card:hover {
+    background: rgba(40, 50, 70, 0.8);
+}
+[data-theme='light'] .term-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.term-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.term-card:hover::before {
+  opacity: 1;
+}
+
+.term-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.term-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.term-id {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--glass-border);
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+}
+
+.term-body p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  background: var(--input-bg);
+  border-radius: 20px; 
+}
+
+/* Footer */
+.main-footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+  border-top: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+.creator-credit {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.creator-credit:hover {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+    padding-top: 0; /* Let sticky header touch top */
+  }
+  
+  .theme-toggle {
+      top: 1rem;
+      right: 1rem;
+  }
+
+  /* Compact sticky header for mobile */
+  .main-header {
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-left: -1rem; /* Counteract padding */
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .main-header h1 {
+    font-size: 2rem; /* Smaller font on mobile */
+  }
+
+  .main-header p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+  }
+  
+  .search-container {
+    max-width: 100%;
+  }
+
+  .terms-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .main-header p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    padding: 1rem 3rem 1rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  .terms-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .term-card {
+    padding: 1.25rem;
+  }
+
+  .term-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .main-footer {
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+}

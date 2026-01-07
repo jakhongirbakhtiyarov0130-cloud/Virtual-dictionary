@@ -1,0 +1,364 @@
+{
+  "musical_terms": [
+    {
+      "id": 1,
+      "atama": "A A",
+      "ma'nosi": "(нем. а, англ. эй) буквенное обозначение звука ля",
+      "rasm_url": ""
+    },
+    {
+      "id": 2,
+      "atama": "A, a",
+      "ma'nosi": "(ит. а), (фр. а) на, у, к, с, при, в, до, вроде, в характере, в стиле",
+      "rasm_url": ""
+    },
+    {
+      "id": 3,
+      "atama": "A battuta",
+      "ma'nosi": "(ит. а баттута) вернуться к ритмически точному исполнению (после rubato, ritardando и т. д.)",
+      "rasm_url": ""
+    },
+    {
+      "id": 4,
+      "atama": "A bocca chiusa",
+      "ma'nosi": "(ит. а бокка кьюза) петь с закрытым ртом",
+      "rasm_url": ""
+    },
+    {
+      "id": 5,
+      "atama": "A bene placito",
+      "ma'nosi": "(ит. а бэнэ плачито) темп и ритм по усмотрению исполнителя, то же, что a piacere, a piacimento",
+      "rasm_url": ""
+    },
+    {
+      "id": 6,
+      "atama": "A cadenza",
+      "ma'nosi": "(ит. а кадэнца) в характере каденции, свободно",
+      "rasm_url": ""
+    },
+    {
+      "id": 7,
+      "atama": "A cappella, alla cappellа",
+      "ma'nosi": "(ит. а каппэlla), (алла каппэлла) пение хора 6eз сопровождения",
+      "rasm_url": ""
+    },
+    {
+      "id": 8,
+      "atama": "A capriccio",
+      "ma'nosi": "(ит. а каприччо) по желанию",
+      "rasm_url": ""
+    },
+    {
+      "id": 9,
+      "atama": "Á deux",
+      "ma'nosi": "(фр. а дэ) вдвоем, на 2 инструментах",
+      "rasm_url": ""
+    },
+    {
+      "id": 10,
+      "atama": "Á deux mains",
+      "ma'nosi": "(а дэ мэн) в 2 руки",
+      "rasm_url": ""
+    },
+    {
+      "id": 11,
+      "atama": "A due",
+      "ma'nosi": "(ит. а дуэ) вдвоем, на 2 инструментах",
+      "rasm_url": ""
+    },
+    {
+      "id": 12,
+      "atama": "A due mani",
+      "ma'nosi": "(а дуэ мани) в 2 руки",
+      "rasm_url": ""
+    },
+    {
+      "id": 13,
+      "atama": "A due voci",
+      "ma'nosi": "(а дуэ вочи) на 2 голоса",
+      "rasm_url": ""
+    },
+    {
+      "id": 14,
+      "atama": "À la",
+      "ma'nosi": "(фр. а ля) вроде, в характере",
+      "rasm_url": ""
+    },
+    {
+      "id": 15,
+      "atama": "À l'aise",
+      "ma'nosi": "(фр. альэз) свободно в темпе и ритме",
+      "rasm_url": ""
+    },
+    {
+      "id": 16,
+      "atama": "À la mesure",
+      "ma'nosi": "(фр. а ля мэзюр) 1) в такт; 2) в прежнем темпе",
+      "rasm_url": ""
+    },
+    {
+      "id": 17,
+      "atama": "A libito",
+      "ma'nosi": "(ит. а либито) по желанию",
+      "rasm_url": ""
+    },
+    {
+      "id": 18,
+      "atama": "A little quicker",
+      "ma'nosi": "(англ. э литл куйкэ) немного быстрее",
+      "rasm_url": ""
+    },
+    {
+      "id": 19,
+      "atama": "À livre ouvert",
+      "ma'nosi": "(фр. а ливр увэр) играть с листа",
+      "rasm_url": ""
+    },
+    {
+      "id": 20,
+      "atama": "A metà d'arco",
+      "ma'nosi": "(ит. мэта д'арко) играть серединой смычка",
+      "rasm_url": ""
+    },
+    {
+      "id": 21,
+      "atama": "A mezza voce",
+      "ma'nosi": "(ит. а мэдза вочэ) вполголоса",
+      "rasm_url": ""
+    },
+    {
+      "id": 22,
+      "atama": "À quatre mains",
+      "ma'nosi": "(фр. а катр мэн) в 4 руки",
+      "rasm_url": ""
+    },
+    {
+      "id": 23,
+      "atama": "À peine",
+      "ma'nosi": "(фр. а пэн) едва, еле-еле",
+      "rasm_url": ""
+    },
+    {
+      "id": 24,
+      "atama": "À plein son",
+      "ma'nosi": "(фр. а плэн сон) полным звуком",
+      "rasm_url": ""
+    },
+    {
+      "id": 25,
+      "atama": "A росо а росо",
+      "ma'nosi": "(ит. а поко а поко) мало-помалу, постепенно",
+      "rasm_url": ""
+    },
+    {
+      "id": 26,
+      "atama": "A prima vista",
+      "ma'nosi": "(ит. а прима виста) играть с листа",
+      "rasm_url": ""
+    },
+    {
+      "id": 27,
+      "atama": "A suo arbitrio",
+      "ma'nosi": "(а суо арбитрио) по своему усмотрению",
+      "rasm_url": ""
+    },
+    {
+      "id": 28,
+      "atama": "A tempo",
+      "ma'nosi": "(ит. а тэмпо) в прежнем темпе",
+      "rasm_url": ""
+    },
+    {
+      "id": 29,
+      "atama": "A tre corde",
+      "ma'nosi": "(ит. а трэ кóрдэ) на 3 струнах, снять левую педаль",
+      "rasm_url": ""
+    },
+    {
+      "id": 30,
+      "atama": "A una corda",
+      "ma'nosi": "(ит. а уна корда) на одной струне; взять левую педаль",
+      "rasm_url": ""
+    },
+    {
+      "id": 31,
+      "atama": "Abbandonatamente",
+      "ma'nosi": "(ит. аббандонатамэнтэ) непринужденно, отдаваясь чувству",
+      "rasm_url": ""
+    },
+    {
+      "id": 32,
+      "atama": "Accelerando",
+      "ma'nosi": "(аччэлерандо) ускоряя",
+      "rasm_url": ""
+    },
+    {
+      "id": 33,
+      "atama": "Acciaccatura",
+      "ma'nosi": "(ит. аччаккатура) вид форшлага",
+      "rasm_url": ""
+    },
+    {
+      "id": 34,
+      "atama": "Adagietto",
+      "ma'nosi": "(ит. ададжиэтто) довольно медленно, но подвижнее, чем adagio",
+      "rasm_url": ""
+    },
+    {
+      "id": 35,
+      "atama": "Adagio",
+      "ma'nosi": "(ит. ададжо) медленно",
+      "rasm_url": ""
+    },
+    {
+      "id": 36,
+      "atama": "Affettuoso",
+      "ma'nosi": "(аффэттуозо) с чувством, нежно",
+      "rasm_url": ""
+    },
+    {
+      "id": 37,
+      "atama": "Agitato",
+      "ma'nosi": "(ит. аджитато) возбужденно, взволнованно",
+      "rasm_url": ""
+    },
+    {
+      "id": 38,
+      "atama": "Al fine",
+      "ma'nosi": "(ит. аль финэ) до конца",
+      "rasm_url": ""
+    },
+    {
+      "id": 39,
+      "atama": "Alla breve",
+      "ma'nosi": "(ит. алла брэвэ) счет половинными нотами",
+      "rasm_url": ""
+    },
+    {
+      "id": 40,
+      "atama": "Allargando",
+      "ma'nosi": "(ит. алларгандо) расширяя, замедляя",
+      "rasm_url": ""
+    },
+    {
+      "id": 41,
+      "atama": "Allegretto",
+      "ma'nosi": "(ит. аллегрэтто) умеренно быстро",
+      "rasm_url": ""
+    },
+    {
+      "id": 42,
+      "atama": "Allegro",
+      "ma'nosi": "(ит. аллегро) скоро, весело",
+      "rasm_url": ""
+    },
+    {
+      "id": 43,
+      "atama": "Andante",
+      "ma'nosi": "(ит. андантэ) темп шага, спокойно",
+      "rasm_url": ""
+    },
+    {
+      "id": 44,
+      "atama": "Andantino",
+      "ma'nosi": "(ит. андантино) чуть быстрее, чем andante",
+      "rasm_url": ""
+    },
+    {
+      "id": 45,
+      "atama": "Animato",
+      "ma'nosi": "(ит. анимато) воодушевленно",
+      "rasm_url": ""
+    },
+    {
+      "id": 46,
+      "atama": "Appassionato",
+      "ma'nosi": "(ит. нппаесьонато) страстно",
+      "rasm_url": ""
+    },
+    {
+      "id": 47,
+      "atama": "Arpeggio",
+      "ma'nosi": "(ит. арпэджо) исполнение звуков аккорда последовательно",
+      "rasm_url": ""
+    },
+    {
+      "id": 48,
+      "atama": "Assai",
+      "ma'nosi": "(ит. ассаи) весьма, очень",
+      "rasm_url": ""
+    },
+    {
+      "id": 49,
+      "atama": "Attacca",
+      "ma'nosi": "(ит. аттакка) без перерыва к следующей части",
+      "rasm_url": ""
+    },
+    {
+      "id": 50,
+      "atama": "B",
+      "ma'nosi": "(нем. бэ) - си-бемоль; (англ. би) - си",
+      "rasm_url": ""
+    },
+    {
+      "id": 51,
+      "atama": "Bacchetta",
+      "ma'nosi": "(ит. баккэтта) дирижерская палочка или палочка для удара",
+      "rasm_url": ""
+    },
+    {
+      "id": 52,
+      "atama": "Ballade",
+      "ma'nosi": "(фр. баляд) баллада",
+      "rasm_url": ""
+    },
+    {
+      "id": 53,
+      "atama": "Baritone",
+      "ma'nosi": "баритон (мужской голос или духовой инструмент)",
+      "rasm_url": ""
+    },
+    {
+      "id": 54,
+      "atama": "Basso continuo",
+      "ma'nosi": "(ит. бассо континуо) непрерывный бас",
+      "rasm_url": ""
+    },
+    {
+      "id": 55,
+      "atama": "Bel canto",
+      "ma'nosi": "(ит. бэль канto) прекрасное пение",
+      "rasm_url": ""
+    },
+    {
+      "id": 56,
+      "atama": "Ben marcato",
+      "ma'nosi": "(ит. бэн маркато) хорошо выделяя",
+      "rasm_url": ""
+    },
+    {
+      "id": 57,
+      "atama": "Bis",
+      "ma'nosi": "(лат. бис) повторить дважды",
+      "rasm_url": ""
+    },
+    {
+      "id": 58,
+      "atama": "Bizzarro",
+      "ma'nosi": "(ит. бидзарро) странно, причудливо",
+      "rasm_url": ""
+    },
+    {
+      "id": 59,
+      "atama": "Bourrée",
+      "ma'nosi": "(фр. бурэ) старинный французский танец",
+      "rasm_url": ""
+    },
+    {
+      "id": 60,
+      "atama": "Bravura",
+      "ma'nosi": "(ит. бравура) смелость, технический блеск",
+      "rasm_url": ""
+    }
+  ]
+}
