@@ -114,7 +114,14 @@ const Quiz = () => {
                 </ul>
             </nav>
 
-            <div className="content-wrapper" style={{ maxWidth: '800px', margin: '40px auto', padding: '0 20px', gridTemplateColumns: '1fr' }}>
+            <div className="content-wrapper">
+                <aside className="sidebar">
+                    <div className="premium-card" style={{ padding: '25px', background: 'white' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px' }}>🏆 NATIJALAR</h3>
+                        <p style={{ fontSize: '0.85rem', color: '#64748b' }}>Oxirgi natijangiz: {score} / 5</p>
+                    </div>
+                </aside>
+
                 <main className="main-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="breadcrumb" style={{ alignSelf: 'flex-start', marginBottom: '20px' }}>{t('home')} &gt; {t('quiz')}</div>
 
@@ -186,6 +193,15 @@ const Quiz = () => {
                         )}
                     </div>
                 </main>
+
+                <aside className="right-sidebar">
+                    <div className="premium-card glass" style={{ padding: '25px' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>🎯 VAZIFA</h3>
+                        <p style={{ fontSize: '0.85rem', color: '#444' }}>
+                            Barcha savollarga to'g'ri javob berib "Musiqa Professori" darajasini qo'lga kiriting!
+                        </p>
+                    </div>
+                </aside>
             </div>
 
             <style>{`

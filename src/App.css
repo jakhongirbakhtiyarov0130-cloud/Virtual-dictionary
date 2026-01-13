@@ -11,6 +11,28 @@
   --radius-md: 12px;
 }
 
+body {
+  background-image:
+    linear-gradient(rgba(0, 71, 154, 0.02) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 71, 154, 0.02) 2px, transparent 2px);
+  background-size: 50px 50px;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background:
+    linear-gradient(180deg, transparent 40px, rgba(0, 71, 154, 0.03) 41px, rgba(0, 71, 154, 0.03) 42px, transparent 43px) 0 0 / 100% 60px,
+    linear-gradient(180deg, transparent 50px, rgba(0, 71, 154, 0.03) 51px, rgba(0, 71, 154, 0.03) 52px, transparent 53px) 0 0 / 100% 60px;
+  z-index: -2;
+  pointer-events: none;
+}
+
 /* Glassmorphism utility */
 .glass {
   background: rgba(255, 255, 255, 0.7);
@@ -300,22 +322,65 @@
 /* Content Area */
 .content-wrapper {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr 280px;
   gap: 30px;
-  padding: 30px 5%;
-  max-width: 1400px;
+  padding: 30px 40px;
+  max-width: 1700px;
   margin: 0 auto;
   width: 100%;
+  align-items: flex-start;
+  /* Crucial for sticky sidebars */
+}
+
+@media (max-width: 1200px) {
+  .content-wrapper {
+    grid-template-columns: var(--sidebar-width) 1fr;
+  }
+
+  .right-sidebar {
+    display: none;
+    /* Hide right sidebar on tablets */
+  }
+}
+
+@media (max-width: 992px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar,
+  .right-sidebar {
+    display: none;
+    /* Hide both sidebars on mobile, use a different navigation if needed */
+  }
 }
 
 /* Sidebar */
-.sidebar {
+.sidebar,
+.right-sidebar {
   display: flex;
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: 180px;
+  top: 150px;
+  /* Adjusted top for better fit */
   align-self: flex-start;
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+  padding-right: 5px;
+  /* Space for scrollbar */
+}
+
+/* Custom scrollbar for sidebars */
+.sidebar::-webkit-scrollbar,
+.right-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.right-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 71, 154, 0.1);
+  border-radius: 10px;
 }
 
 .sidebar-card {
@@ -387,6 +452,8 @@
 /* Main Content */
 .main-content {
   flex: 1;
+  min-width: 0;
+  /* Prevents grid-item from expanding beyond parent */
 }
 
 .breadcrumb {

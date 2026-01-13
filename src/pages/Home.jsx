@@ -42,6 +42,37 @@ const TermModal = ({ term, onClose, isFavorite, onToggleFavorite }) => {
         }
     };
 
+    const handleSpeak = (e) => {
+        if (e) e.stopPropagation();
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(term.atama);
+        const voices = window.speechSynthesis.getVoices();
+
+        const getBestVoice = () => {
+            // Priority: 1. Online Male, 2. Natural Male, 3. Specific Male Names (Sardor, Davron, Madis), 4. Any Male
+            return voices.find(v => v.name.includes('Online') && v.name.match(/Male|Sardor|Davron|Madis/i)) ||
+                voices.find(v => v.name.includes('Natural') && v.name.match(/Male|Sardor|Davron|Madis/i)) ||
+                voices.find(v => v.name.includes('Google') && v.lang.startsWith('ru') && v.name.includes('Male')) ||
+                voices.find(v => v.name.match(/Davron|Sardor|Madis|Pavel|Dmitry/i)) ||
+                voices.find(v => v.name.includes('Male')) ||
+                voices.find(v => v.lang.startsWith('uz')) ||
+                voices.find(v => v.lang.startsWith('tr'));
+        };
+
+        const voice = getBestVoice();
+        if (voice) {
+            utterance.voice = voice;
+            utterance.lang = voice.lang;
+        } else {
+            utterance.lang = 'uz-UZ';
+        }
+
+        utterance.rate = 0.85;
+        utterance.pitch = 0.9;
+        utterance.volume = 1;
+        window.speechSynthesis.speak(utterance);
+    };
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="term-modal" onClick={e => e.stopPropagation()}>
@@ -50,27 +81,48 @@ const TermModal = ({ term, onClose, isFavorite, onToggleFavorite }) => {
                     {term.rasm_url && <img src={term.rasm_url} alt={term.atama} />}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
                         <h2 style={{ fontSize: '1.8rem', margin: 0, flex: 1 }}>{term.atama}</h2>
-                        <button
-                            style={{
-                                background: 'white',
-                                border: '1px solid #eee',
-                                cursor: 'pointer',
-                                color: isFavorite ? '#ff4d4f' : '#ccc',
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                                transition: 'all 0.2s',
-                                marginLeft: '10px'
-                            }}
-                            className="fav-modal-btn"
-                            onClick={() => onToggleFavorite(term)}
-                        >
-                            <IconHeart filled={isFavorite} />
-                        </button>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <button
+                                onClick={handleSpeak}
+                                style={{
+                                    background: 'white',
+                                    border: '1px solid #eee',
+                                    cursor: 'pointer',
+                                    color: 'var(--accent-color)',
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s',
+                                }}
+                                title="Tinglash"
+                            >
+                                <IconSpeaker />
+                            </button>
+                            <button
+                                style={{
+                                    background: 'white',
+                                    border: '1px solid #eee',
+                                    cursor: 'pointer',
+                                    color: isFavorite ? '#ff4d4f' : '#ccc',
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                                    transition: 'all 0.2s',
+                                }}
+                                className="fav-modal-btn"
+                                onClick={() => onToggleFavorite(term)}
+                            >
+                                <IconHeart filled={isFavorite} />
+                            </button>
+                        </div>
                     </div>
                     <p className="modal-description">{getFullDefinition() || "Izoh mavjud emas."}</p>
                 </div>
@@ -86,8 +138,31 @@ const TermCard = ({ term, onOpen, isFavorite, onToggleFavorite }) => {
         e.stopPropagation();
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(term.atama);
-        utterance.lang = 'uz-UZ';
-        utterance.rate = 0.9;
+
+        const voices = window.speechSynthesis.getVoices();
+
+        const getBestVoice = () => {
+            return voices.find(v => v.name.includes('Online') && v.name.match(/Male|Sardor|Davron|Madis/i)) ||
+                voices.find(v => v.name.includes('Natural') && v.name.match(/Male|Sardor|Davron|Madis/i)) ||
+                voices.find(v => v.name.includes('Google') && v.lang.startsWith('ru') && v.name.includes('Male')) ||
+                voices.find(v => v.name.match(/Davron|Sardor|Madis|Pavel|Dmitry/i)) ||
+                voices.find(v => v.name.includes('Male')) ||
+                voices.find(v => v.lang.startsWith('uz')) ||
+                voices.find(v => v.lang.startsWith('tr'));
+        };
+
+        const voice = getBestVoice();
+        if (voice) {
+            utterance.voice = voice;
+            utterance.lang = voice.lang;
+        } else {
+            utterance.lang = 'uz-UZ';
+        }
+
+        utterance.rate = 0.85;
+        utterance.pitch = 0.9;
+        utterance.volume = 1;
+
         window.speechSynthesis.speak(utterance);
     };
 
@@ -407,7 +482,6 @@ function Home() {
                 <ul>
                     <li className="active"><Link to="/">{t('dictionary')}</Link></li>
                     <li><Link to="/composers">{t('composers')}</Link></li>
-                    <li><Link to="/instruments">{t('instruments')}</Link></li>
                     <li><Link to="/quiz">{t('quiz')}</Link></li>
                 </ul>
             </nav>
@@ -573,6 +647,49 @@ function Home() {
                         )}
                     </div>
                 </main>
+
+                <aside className="right-sidebar">
+                    <div className="premium-card" style={{ padding: '25px', marginBottom: '20px' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            📊 STATISTIKA
+                        </h3>
+                        <div style={{ display: 'grid', gap: '15px' }}>
+                            <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '12px', border: '1px solid #f1f5f9' }}>
+                                <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Jami Atamalar</div>
+                                <div style={{ fontSize: '1.4rem', fontWeight: '800', color: 'var(--accent-color)' }}>{terms.length}</div>
+                            </div>
+                            <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '12px', border: '1px solid #f1f5f9' }}>
+                                <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Sevimli Atamalar</div>
+                                <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#ff4d4f' }}>{favorites.length}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="premium-card" style={{ padding: '25px', marginBottom: '20px' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px' }}>
+                            📅 TADBIRLAR
+                        </h3>
+                        <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '15px' }}>
+                            <li style={{ fontSize: '0.85rem' }}>
+                                <div style={{ fontWeight: '700', color: 'var(--accent-color)' }}>20-Yanvar, 2026</div>
+                                <div style={{ color: '#444' }}>Simfonik Musiqa Kechasi</div>
+                                <div style={{ fontSize: '0.75rem', color: '#888' }}>Konsert Zali, 18:30</div>
+                            </li>
+                            <li style={{ fontSize: '0.85rem' }}>
+                                <div style={{ fontWeight: '700', color: 'var(--accent-color)' }}>25-Yanvar, 2026</div>
+                                <div style={{ color: '#444' }}>Yosh Musiqachilar Tanlovi</div>
+                                <div style={{ fontSize: '0.75rem', color: '#888' }}>Madaniyat Saroyi</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="premium-card glass" style={{ padding: '25px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(255, 255, 255, 0.9))' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>💡 MASLAHAT</h3>
+                        <p style={{ fontSize: '0.85rem', color: '#444', lineHeight: '1.6' }}>
+                            Musiqa o'rganishda muntazamlik eng muhimi. Kuniga 15 daqiqa bo'lsa ham mashq qilish, haftada bir marta 2 soat mashq qilishdan samaraliroq.
+                        </p>
+                    </div>
+                </aside>
             </div>
 
             <TermModal

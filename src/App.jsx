@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Composers from './pages/Composers';
-import Instruments from './pages/Instruments';
 import Quiz from './pages/Quiz';
 import FloatingBackground from './components/FloatingBackground';
 import './App.css';
@@ -33,6 +32,9 @@ function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
+        <div className="bg-blob blob-1"></div>
+        <div className="bg-blob blob-2"></div>
+        <div className="bg-blob blob-3"></div>
         <FloatingBackground showStickman={location.pathname === '/register' || location.pathname === '/login'} />
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -62,14 +64,6 @@ function App() {
             }
           />
           <Route
-            path="/instruments"
-            element={
-              <ProtectedRoute>
-                <Instruments />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/quiz"
             element={
               <ProtectedRoute>
@@ -77,6 +71,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
         </Routes>
       </AuthProvider>
     </LanguageProvider>

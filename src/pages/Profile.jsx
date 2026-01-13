@@ -83,7 +83,14 @@ const Profile = () => {
                 </ul>
             </nav>
 
-            <div className="content-wrapper" style={{ maxWidth: '900px', margin: '30px auto', padding: '0 20px', gridTemplateColumns: '1fr' }}>
+            <div className="content-wrapper">
+                <aside className="sidebar">
+                    <div className="premium-card" style={{ padding: '25px', background: 'white' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>👤 STATUS</h3>
+                        <p style={{ fontSize: '0.85rem', color: '#64748b' }}>Sizning hisobingiz faol va himoyalangan.</p>
+                    </div>
+                </aside>
+
                 <main className="main-content">
                     <div className="breadcrumb" style={{ marginBottom: '20px' }}>{t('home')} &gt; {t('profile')}</div>
 
@@ -228,6 +235,15 @@ const Profile = () => {
                         Virtual Musiqa Lug'ati — 2026
                     </p>
                 </main>
+
+                <aside className="right-sidebar">
+                    <div className="premium-card glass" style={{ padding: '25px' }}>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>🔐 HAVFSIZLIK</h3>
+                        <p style={{ fontSize: '0.85rem', color: '#444' }}>
+                            Parolingizni hech kimga bermang. Biz sizning ma'lumotlaringizni himoya qilamiz.
+                        </p>
+                    </div>
+                </aside>
             </div>
 
             <style>{`
