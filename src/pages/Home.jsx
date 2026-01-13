@@ -576,10 +576,18 @@ function Home() {
                             "{t('daily_quote')}"
                         </span>
                     </div>
+
+                    {/* AD SLOT: Left Sidebar Bottom */}
+                    <div className="ad-banner" style={{ border: '1px dashed #cbd5e1', padding: '15px', color: '#94a3b8', fontSize: '0.75rem', fontWeight: '600' }}>
+                        REKLAMA JOYI (280x250)
+                    </div>
                 </aside>
 
                 <main className="main-content">
-                    <div className="breadcrumb" style={{ marginBottom: '15px' }}>{t('home')} &gt; {t('dictionary')}</div>
+                    {/* AD SLOT: Horizontal Main Banner */}
+                    <div className="ad-banner" style={{ width: '100%', height: '90px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', border: '1px dashed #cbd5e1', color: '#94a3b8', marginBottom: '20px', borderRadius: '12px' }}>
+                        HORIZONTAL REKLAMA BANNERI (728x90)
+                    </div>
 
                     {/* Featured Term Card - Dynamic Surprise Feature */}
                     {dailyTerm && (
@@ -620,10 +628,13 @@ function Home() {
                         </div>
                     )}
 
-                    <AlphabetFilter onLetterSelect={setSelectedLetter} activeLetter={selectedLetter} />
-                    <div className="results-count" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                    <div className="breadcrumb" style={{ marginBottom: '15px' }}>{t('home')} &gt; {t('dictionary')}</div>
+
+                    <div className="results-count" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
                         <span>Topildi: <strong>{filteredTerms.length}</strong> ta atama</span>
                     </div>
+
+                    <AlphabetFilter onLetterSelect={setSelectedLetter} activeLetter={selectedLetter} />
                     <div className="terms-grid">
                         {loading ? (
                             <div style={{ textAlign: 'center', gridColumn: '1/-1', padding: '100px' }}>Yuklanmoqda...</div>
@@ -688,6 +699,11 @@ function Home() {
                         <p style={{ fontSize: '0.85rem', color: '#444', lineHeight: '1.6' }}>
                             Musiqa o'rganishda muntazamlik eng muhimi. Kuniga 15 daqiqa bo'lsa ham mashq qilish, haftada bir marta 2 soat mashq qilishdan samaraliroq.
                         </p>
+                    </div>
+
+                    {/* AD SLOT: Right Sidebar Bottom */}
+                    <div className="ad-banner" style={{ border: '1px dashed #cbd5e1', padding: '15px', color: '#94a3b8', fontSize: '0.75rem', fontWeight: '600' }}>
+                        REKLAMA JOYI (280x400)
                     </div>
                 </aside>
             </div>
