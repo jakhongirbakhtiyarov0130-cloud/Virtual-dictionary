@@ -72,7 +72,12 @@ const translations = {
         sidebar_news: "Musiqa Dunyosida",
         daily_quote: "Musiqa — so'z bilan aytib bo'lmaydigan tuyg'ular sadosi.",
         news_1: "Shashmaqom xalqaro festivali yakunlandi",
-        news_2: "Yangi simfonik orkestr tashkil etildi"
+        news_2: "Yangi simfonik orkestr tashkil etildi",
+        theory: "Musiqa Nazariyasi",
+        theory_subtitle: "20 kunlik maxsus kurs",
+        start_course: "Kursni boshlash",
+        day: "Kun",
+        lesson: "Dars"
     },
     ru: {
         login: "Вход",
@@ -143,7 +148,12 @@ const translations = {
         sidebar_news: "В Мире Музыки",
         daily_quote: "Музыка — это голос чувств, которые невозможно выразить словами.",
         news_1: "Завершился международный фестиваль Шашмаком",
-        news_2: "Создан новый симфонический оркестр"
+        news_2: "Создан новый симфонический оркестр",
+        theory: "Теория Музыки",
+        theory_subtitle: "20-дневный спецкурс",
+        start_course: "Начать курс",
+        day: "День",
+        lesson: "Урок"
     },
     kaa: {
         login: "Kiriw",
@@ -214,7 +224,12 @@ const translations = {
         sidebar_news: "Musıka Dünyasında",
         daily_quote: "Musıka — sóz benen aytıp bolmaytuǵın tuyǵılar sadosı.",
         news_1: "Shashmaqom xalıqaralıq festivalı juqmaqlandı",
-        news_2: "Jańa simfonikalıq orkestr shólkemlestirildi"
+        news_2: "Jańa simfonikalıq orkestr shólkemlestirildi",
+        theory: "Musıka Teoriyası",
+        theory_subtitle: "20 kúnlik arnawlı kurs",
+        start_course: "Kurstı baslaw",
+        day: "Kún",
+        lesson: "Sabaq"
     }
 };
 

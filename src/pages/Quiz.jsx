@@ -12,6 +12,8 @@ const IconUser = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="non
 const IconPhone = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>;
 const IconMail = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>;
 const IconAward = () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>;
+const IconTrophy = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>;
+const IconTarget = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>;
 
 const quizData = {
     uz: [
@@ -109,6 +111,7 @@ const Quiz = () => {
             <nav className="main-nav">
                 <ul style={{ gap: '20px' }}>
                     <li><Link to="/">{t('dictionary')}</Link></li>
+                    <li><Link to="/theory">{t('theory')}</Link></li>
                     <li><Link to="/composers">{t('composers')}</Link></li>
                     <li className="active"><Link to="/quiz" style={{ color: 'var(--accent-color)' }}>{t('quiz')}</Link></li>
                 </ul>
@@ -117,7 +120,7 @@ const Quiz = () => {
             <div className="content-wrapper">
                 <aside className="sidebar">
                     <div className="premium-card" style={{ padding: '25px', background: 'white' }}>
-                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px' }}>🏆 NATIJALAR</h3>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}><IconTrophy /> NATIJALAR</h3>
                         <p style={{ fontSize: '0.85rem', color: '#64748b' }}>Oxirgi natijangiz: {score} / 5</p>
                     </div>
                 </aside>
@@ -196,7 +199,7 @@ const Quiz = () => {
 
                 <aside className="right-sidebar">
                     <div className="premium-card glass" style={{ padding: '25px' }}>
-                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>🎯 VAZIFA</h3>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}><IconTarget /> VAZIFA</h3>
                         <p style={{ fontSize: '0.85rem', color: '#444' }}>
                             Barcha savollarga to'g'ri javob berib "Musiqa Professori" darajasini qo'lga kiriting!
                         </p>

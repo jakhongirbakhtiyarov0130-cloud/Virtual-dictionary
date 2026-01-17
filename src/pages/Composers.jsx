@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 
 import Logo from "/images/logo.png"
 import Metronome from '../components/Metronome';
-import VirtualPiano from '../components/VirtualPiano';
+
 
 const SHEET_ID = '1EplZnqMhRJHS2XBqr00Qjpl8-iaXMDRKhMCL3E3Y2ts';
 const COMPOSERS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Kompozitorlar`;
@@ -26,6 +26,15 @@ const IconHeart = ({ filled }) => <svg width="18" height="18" viewBox="0 0 24 24
 const IconHistory = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
 const IconSpeaker = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>;
 
+
+const IconSettings = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
+const IconGlobe = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
+const IconMusic = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>;
+const IconViolin = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2c0 5 0 5 0 10"></path><circle cx="12" cy="17" r="5"></circle><line x1="8" y1="14" x2="16" y2="14"></line></svg>;
+const IconScroll = () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>;
+const IconChart = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>;
+const IconCalendar = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>;
+const IconBulb = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.9.93-1.54 1.86-1.63A4 4 0 1 1 10 3.12 4.02 4.02 0 0 1 15.09 14z"></path></svg>;
 const TermModal = ({ term, onClose, isFavorite, onToggleFavorite }) => {
     if (!term) return null;
     const { language } = useLanguage();
@@ -188,7 +197,7 @@ const Composers = () => {
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('fav_terms') || '[]'));
     const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem('view_history') || '[]'));
     const [selectedTerm, setSelectedTerm] = useState(null);
-    const [isPianoOpen, setIsPianoOpen] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -317,6 +326,7 @@ const Composers = () => {
             <nav className="main-nav">
                 <ul style={{ gap: '20px' }}>
                     <li><Link to="/">{t('dictionary')}</Link></li>
+                    <li><Link to="/theory">{t('theory')}</Link></li>
                     <li className="active"><Link to="/composers" style={{ color: 'var(--accent-color)' }}>{t('composers')}</Link></li>
                     <li><Link to="/quiz">{t('quiz')}</Link></li>
                 </ul>
@@ -327,9 +337,7 @@ const Composers = () => {
                     <button className="random-btn" onClick={handleRandom}>
                         <IconDice /> TASODIFIY ATAMA
                     </button>
-                    <button className="random-btn random-btn-piano" onClick={() => setIsPianoOpen(true)}>
-                        🎹 {t('virtual_piano')}
-                    </button>
+
                     <div className="sidebar-card premium-card" style={{ padding: '0' }}>
                         <div className="sidebar-header" style={{ padding: '15px 20px', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <IconHeart filled /> SEVIMLILAR
@@ -360,7 +368,7 @@ const Composers = () => {
                             border: '1px solid #e2e8f0'
                         }}>
                             <div style={{ color: 'var(--accent-color)', fontWeight: '700', fontSize: '0.85rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                ⚙️ {t('admin_info')}
+                                <IconSettings /> {t('admin_info')}
                             </div>
                             <p style={{ fontSize: '0.75rem', color: '#64748b', lineHeight: '1.4', marginBottom: '12px' }}>
                                 {t('admin_desc')}
@@ -382,18 +390,18 @@ const Composers = () => {
                     )}
                     <div className="premium-card" style={{ padding: '25px', background: 'white' }}>
                         <div style={{ color: 'var(--accent-color)', fontWeight: '800', fontSize: '0.8rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                            <span style={{ fontSize: '1.2rem' }}>🌐</span> {t('sidebar_news')}
+                            <span style={{ fontSize: '1.2rem', display: 'flex' }}><IconGlobe /></span> {t('sidebar_news')}
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '15px' }}>
                             <li className="news-item" style={{ fontSize: '0.85rem', padding: '12px', borderRadius: '10px', background: '#f8fafc', color: '#334155', border: '1px solid #f1f5f9', cursor: 'pointer', transition: 'all 0.2s' }}>
                                 <div style={{ display: 'flex', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.1rem' }}>🎵</span>
+                                    <span style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center' }}><IconMusic /></span>
                                     <span>{t('news_1')}</span>
                                 </div>
                             </li>
                             <li className="news-item" style={{ fontSize: '0.85rem', padding: '12px', borderRadius: '10px', background: '#f8fafc', color: '#334155', border: '1px solid #f1f5f9', cursor: 'pointer', transition: 'all 0.2s' }}>
                                 <div style={{ display: 'flex', gap: '10px' }}>
-                                    <span style={{ fontSize: '1.1rem' }}>🎻</span>
+                                    <span style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center' }}><IconViolin /></span>
                                     <span>{t('news_2')}</span>
                                 </div>
                             </li>
@@ -406,7 +414,7 @@ const Composers = () => {
                         color: 'white',
                         position: 'relative'
                     }}>
-                        <div style={{ position: 'absolute', top: '-10px', right: '-10px', fontSize: '4rem', opacity: 0.1, transform: 'rotate(15deg)' }}>📜</div>
+                        <div style={{ position: 'absolute', top: '-10px', right: '-10px', fontSize: '4rem', opacity: 0.1, transform: 'rotate(15deg)' }}><IconScroll /></div>
                         <strong style={{ color: 'var(--secondary-color)', display: 'block', marginBottom: '15px', fontSize: '0.7rem', letterSpacing: '2px', fontWeight: '800' }}>KUN HIKMATI</strong>
                         <span style={{ fontSize: '0.95rem', fontStyle: 'italic', lineHeight: '1.6', position: 'relative', zIndex: 1, display: 'block' }}>
                             "{t('daily_quote')}"
@@ -442,8 +450,8 @@ const Composers = () => {
 
                 <aside className="right-sidebar">
                     <div className="premium-card" style={{ padding: '25px', marginBottom: '20px' }}>
-                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px' }}>
-                            📊 STATISTIKA
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <IconChart /> STATISTIKA
                         </h3>
                         <div style={{ display: 'grid', gap: '15px' }}>
                             <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '12px', border: '1px solid #f1f5f9' }}>
@@ -454,8 +462,8 @@ const Composers = () => {
                     </div>
 
                     <div className="premium-card" style={{ padding: '25px', marginBottom: '20px' }}>
-                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px' }}>
-                            📅 TADBIRLAR
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <IconCalendar /> TADBIRLAR
                         </h3>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '15px' }}>
                             <li style={{ fontSize: '0.85rem' }}>
@@ -470,7 +478,7 @@ const Composers = () => {
                     </div>
 
                     <div className="premium-card glass" style={{ padding: '25px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(255, 255, 255, 0.9))' }}>
-                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px' }}>💡 MASLAHAT</h3>
+                        <h3 style={{ fontSize: '1rem', color: 'var(--accent-color)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}><IconBulb /> MASLAHAT</h3>
                         <p style={{ fontSize: '0.85rem', color: '#444', lineHeight: '1.6' }}>
                             Kompozitorlarning hayot yo'lini o'rganish ularning musiqasini chuqurroq his qilishga yordam beradi.
                         </p>
@@ -485,7 +493,7 @@ const Composers = () => {
                 isFavorite={selectedTerm && favorites.some(f => f.id === selectedTerm.id)}
                 onToggleFavorite={toggleFavorite}
             />
-            {isPianoOpen && <VirtualPiano onClose={() => setIsPianoOpen(false)} />}
+
             <Footer />
         </div>
     );

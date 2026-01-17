@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Composers from './pages/Composers';
 import Quiz from './pages/Quiz';
+import Theory from './pages/Theory';
 import FloatingBackground from './components/FloatingBackground';
 import './App.css';
 
@@ -60,6 +61,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Composers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/theory"
+            element={
+              <ProtectedRoute>
+                <Theory />
               </ProtectedRoute>
             }
           />
