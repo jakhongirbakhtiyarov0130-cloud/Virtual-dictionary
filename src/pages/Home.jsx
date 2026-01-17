@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import '../App.css';
+import { lessons } from '../data/theoryData';
 import WelcomeGreeting from '../components/WelcomeGreeting';
 import Footer from '../components/Footer';
 
@@ -13,6 +14,7 @@ import Logo from "/images/logo.png"
 
 const SHEET_ID = '1EplZnqMhRJHS2XBqr00Qjpl8-iaXMDRKhMCL3E3Y2ts';
 const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=MusiqaLugati`;
+const COMPOSERS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Kompozitorlar`;
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyemAthfI7hbmhs1_K7MADxYxfxro0zdRCCnqrdw5VKqZlgb1MX4LzNL3p6JISAwEoU/exec';
 
 // --- Professional Icons (SVG) ---
@@ -241,6 +243,7 @@ const AlphabetFilter = ({ onLetterSelect, activeLetter }) => {
 function Home() {
     const [search, setSearch] = useState('');
     const [terms, setTerms] = useState([]);
+    const [composers, setComposers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedLetter, setSelectedLetter] = useState(null);
@@ -289,6 +292,28 @@ function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Fetch Composers
+                Papa.parse(COMPOSERS_CSV_URL, {
+                    download: true,
+                    header: false,
+                    skipEmptyLines: true,
+                    complete: (results) => {
+                        if (results.data && results.data.length > 1) {
+                            const rawRows = results.data.slice(1);
+                            const formatted = rawRows.map(row => {
+                                if (!row[0]) return null;
+                                return {
+                                    name: row[0]?.trim(),
+                                    info: row[1]?.trim() || "Ma'lumot yo'q",
+                                    image: row[2]?.trim(),
+                                    years: row[3]?.trim()
+                                };
+                            }).filter(c => c !== null);
+                            setComposers(formatted);
+                        }
+                    }
+                });
+
                 Papa.parse(SHEET_CSV_URL, {
                     download: true,
                     header: false,
@@ -388,16 +413,50 @@ function Home() {
 
         setTimeout(() => {
             const query = chatInput.toLowerCase().trim();
-            const foundTerm = terms.find(t => t.atama.toLowerCase() === query || t.atama.toLowerCase().includes(query));
+            let botMsgContent = "";
 
-            let botMsg;
-            if (foundTerm) {
-                const desc = language === 'uz' ? foundTerm.manosi_uz : foundTerm.manosi_ru;
-                botMsg = { role: 'bot', content: `${foundTerm.atama}: ${desc || "Izoh mavjud emas."}` };
+            // Aliases: Uzbek input -> Database English/German names
+            const aliases = {
+                "motsart": "mozart",
+                "bax": "bach",
+                "betxoven": "beethoven",
+                "shopen": "chopin",
+                "chaykovskiy": "tchaikovsky",
+                "vivaldi": "vivaldi",
+                "verdi": "verdi"
+            };
+
+            // 1. Search in Dictionary (Exact match preferred, then fuzzy)
+            const foundTerm = terms.find(t => t.atama.toLowerCase() === query) ||
+                terms.find(t => t.atama.toLowerCase().includes(query));
+
+            // 2. Search in Composers (with alias support)
+            const foundComposer = composers.find(c => {
+                const name = c.name.toLowerCase();
+                if (name.includes(query)) return true;
+                for (const [uzbekName, engName] of Object.entries(aliases)) {
+                    if (query.includes(uzbekName) && name.includes(engName)) return true;
+                }
+                return false;
+            });
+
+            // 3. Search in Theory Lessons
+            const foundLesson = lessons.find(l => l.title.toLowerCase().includes(query) || l.content.toLowerCase().includes(query));
+
+            // 4. Prioritize Matches
+            if (foundComposer) {
+                botMsgContent = `👤 **Kompozitor:** ${foundComposer.name} (${foundComposer.years})\n${foundComposer.info}`;
+            } else if (foundTerm && !query.includes('dars') && !query.includes('nazariya')) {
+                // If query looks like a term
+                const desc = language === 'uz' ? foundTerm.manosi_uz : (language === 'kaa' ? foundTerm.manosi_kaa : foundTerm.manosi_ru);
+                botMsgContent = `📚 **Lug'at:** ${foundTerm.atama}\n${desc || "Izoh mavjud emas."}`;
+            } else if (foundLesson) {
+                botMsgContent = `📖 **Nazariya (Dars ${foundLesson.id}):** ${foundLesson.title}\n${foundLesson.desc}\n(Batafsil "Musiqa Nazariyasi" bo'limida)`;
             } else {
-                botMsg = { role: 'bot', content: `Kechirasiz, "${chatInput}" atamasini lug'atdan topa olmadim.` };
+                botMsgContent = `Kechirasiz, "${chatInput}" bo'yicha aniq ma'lumot topa olmadim.`;
             }
-            setMessages(prev => [...prev, botMsg]);
+
+            setMessages(prev => [...prev, { role: 'bot', content: botMsgContent }]);
         }, 600);
     };
 
