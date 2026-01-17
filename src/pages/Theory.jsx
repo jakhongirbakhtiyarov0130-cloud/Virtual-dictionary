@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { Link } from 'react-router-dom';
@@ -14,17 +14,35 @@ const IconMail = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="non
 const IconBookOpen = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>;
 const IconCheck = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
 const IconPlay = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>;
+const IconLock = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>;
 
 const Theory = () => {
     const { user } = useAuth();
     const { language, setLanguage, t } = useLanguage();
     const [activeLesson, setActiveLesson] = useState(null);
 
+    // Progress state: Stores the ID of the highest unlocked lesson. Default is 1.
+    const [maxUnlockedLesson, setMaxUnlockedLesson] = useState(1);
+
+    // Initialize from localStorage if available
+    useEffect(() => {
+        const savedProgress = localStorage.getItem('music_theory_progress');
+        if (savedProgress) {
+            setMaxUnlockedLesson(parseInt(savedProgress, 10));
+        }
+    }, []);
+
+    // Save progress when it changes
+    useEffect(() => {
+        localStorage.setItem('music_theory_progress', maxUnlockedLesson.toString());
+    }, [maxUnlockedLesson]);
+
     const lessons = [
         {
             id: 1,
             title: "Musiqa nima? Tovushlarning xususiyatlari",
             desc: "Musiqa san'atining asosiy tushunchalari va tovush fizikasi.",
+            videoId: "lTx3G6h2xyA", // Music Theory Basics
             content: `
             <h3>Musiqa haqida tushuncha</h3>
             <p>Musiqa — (yunoncha ”musike” — ilhom parilari sanʼati) — inson his-tuygʻulari, orzu-intilishlari va fikrlarini badiiy musiqiy obrazlarda aks ettiruvchi tovushli sanʼat turi.</p>
@@ -51,6 +69,7 @@ const Theory = () => {
             id: 2,
             title: "Nota yozuvi va Notalar cho'zimi",
             desc: "Notalarning yozilishi va ularning vaqt bo'yicha davomiyligi.",
+            videoId: "gw7jQ0s_96k", // Notes and Duration
             content: `
             <h3>Nota nima?</h3>
             <p>Nota (lotincha "belgi") — musiqiy tovushlarni qog'ozda ifodalash uchun ishlatiladigan shartli belgi.</p>
@@ -72,6 +91,7 @@ const Theory = () => {
             id: 3,
             title: "Nota yo'li va Kalitlar",
             desc: "Skripka va Bass kalitlari, nota yo'lida notalarning joylashuvi.",
+            videoId: "t3Ff0Z04lGk", // Staff and Clefs
             content: `
             <h3>Nota yo'li (Notanosec)</h3>
             <p>Notalar 5 ta parallel chiziqdan iborat <strong>nota yo'li</strong>ga yoziladi. Chiziqlar pastdan yuqoriga qarab sanaladi (1, 2, 3, 4, 5).</p>
@@ -94,6 +114,7 @@ const Theory = () => {
             id: 4,
             title: "Ton va Yarim ton. Alteratsiya",
             desc: "Tovushlarning baland-pastligi va o'zgarish belgilari (diez, bemol).",
+            videoId: "V12Q43S4xHk", // Tones and Semitones
             content: `
             <h3>Yarim ton va Ton</h3>
             <p><strong>Yarim ton:</strong> Musiqadagi ikki tovush orasidagi eng qisqa masofa. Fortepianoda bu ikkita qo'shni tugma (oq va qora yoki ikkita oq) orasidagi masofadir.</p>
@@ -115,6 +136,7 @@ const Theory = () => {
             id: 5,
             title: "Ritm va Metr",
             desc: "Musiqiy vaqt, kuchli va kuchsiz hissalar.",
+            videoId: "b59e37_66iE", // Rhythm and Meter
             content: `
             <h3>Musiqiy Puls</h3>
             <p>Yurak urishi kabi, musiqaning ham o'z pulsi bor. Bu bir tekisda davom etuvchi urishlardir.</p>
@@ -131,6 +153,7 @@ const Theory = () => {
             id: 6,
             title: "O'lchovlar va Taktlar",
             desc: "2/4, 3/4, 4/4 o'lchovlari va dirijyorlik sxemalari.",
+            videoId: "generic_theory_6",
             content: `
             <h3>Takt</h3>
             <p>Takt — bu bir kuchli hissadan keyingi kuchli hissagacha bo'lgan musiqa parchasi. Taktlar nota yo'lida vertikal chiziq (takt chizig'i) bilan ajratiladi.</p>
@@ -154,6 +177,7 @@ const Theory = () => {
             id: 7,
             title: "Temp va Dinamika",
             desc: "Musiqa tezligi va tovush kuchi (piano, forte).",
+            videoId: "generic_theory_7",
             content: `
             <h3>Temp</h3>
             <p>Temp — musiqiy asarning ijro etilish tezligi. Templar asosan italyan tilida ifodalanadi:</p>
@@ -182,6 +206,7 @@ const Theory = () => {
             id: 8,
             title: "Intervallar: Sodda intervallar",
             desc: "Prima, sekunda, tersiya va boshqa intervallar.",
+            videoId: "generic_theory_8",
             content: `
             <h3>Interval nima?</h3>
             <p>Interval — (lotincha "oraliq") ikki tovush orasidagi balandlik masofasi.
@@ -205,6 +230,7 @@ const Theory = () => {
             id: 9,
             title: "Intervallar: Kengaytirilgan",
             desc: "Sof, katta, kichik, orttirilgan va kamaytirulgan intervallar.",
+            videoId: "generic_theory_9",
             content: `
             <h3>Interval Sifati</h3>
             <p>Intervallar nafaqat pog'onalar soni bilan, balki ularning ichidagi tonlar soni bilan ham farqlanadi. Ular <strong>Sof, Katta, Kichik, Orttirilgan</strong> va <strong>Kamaytirulgan</strong> bo'lishi mumkin.</p>
@@ -225,6 +251,7 @@ const Theory = () => {
             id: 10,
             title: "Ladlar: Major va Minor",
             desc: "Musiqiy ladlarning tuzilishi va turlari.",
+            videoId: "generic_theory_10",
             content: `
             <h3>Lad nima?</h3>
             <p>Lad — musiqadagi barqaror (tayanch) va beqaror tovushlarning o'zaro bog'liqligi. Eng asosiy barqaror tovush <strong>Tonika</strong> deb ataladi.</p>
@@ -243,6 +270,7 @@ const Theory = () => {
             id: 11,
             title: "Tonallik va Gamma",
             desc: "Tonalliklar doirasi va gammalar ijrosi.",
+            videoId: "generic_theory_11",
             content: `
             <h3>Gamma</h3>
             <p>Gamma — bu lad tovushlarining balandlik bo'yicha (pastdan yuqoriga yoki aksincha) bir oktava davomida ketma-ket joylashishi.</p>
@@ -260,6 +288,7 @@ const Theory = () => {
             id: 12,
             title: "Akkordlar: Uch tovushliklar",
             desc: "Major va Minor uch tovushliklari.",
+            videoId: "generic_theory_12",
             content: `
             <h3>Akkord</h3>
             <p>Akkord — uch yoki undan ortiq tovushlarning bir vaqtda (yoki ketma-ket) eshitilishi.</p>
@@ -277,6 +306,7 @@ const Theory = () => {
             id: 13,
             title: "Akkordlar aylanmasi",
             desc: "Sekstakkord va kvartsekstakkordlar.",
+            videoId: "generic_theory_13",
             content: `
             <h3>Aylanma nima?</h3>
             <p>Akkordning pastki tovushini (basni) yuqoriga bir oktavaga ko'chirish natijasida hosil bo'lgan yangi akkordga aylanma deyiladi.</p>
@@ -294,6 +324,7 @@ const Theory = () => {
             id: 14,
             title: "Septakkordlar",
             desc: "Dominant septakkord va uning aylanmalari.",
+            videoId: "generic_theory_14",
             content: `
             <h3>Septakkord (7)</h3>
             <p>Tersiya bo'ylab joylashgan to'rtta tovushdan iborat akkord. Uning chetki tovushlari orasi septima bo'lgani uchun shunday ataladi.</p>
@@ -308,6 +339,7 @@ const Theory = () => {
             id: 15,
             title: "Melodiya va Garmoniya",
             desc: "Musiqaning horizontall va vertikal tuzilishi.",
+            videoId: "generic_theory_15",
             content: `
             <h3>Melodiya</h3>
             <p>Melodiya (kuy) — musiqaning "qalb"i. Bu bir ovozli musiqiy fikr bo'lib, lad va ritm asosida tashkil topgan tovushlar ketma-ketligidir. Melodiya gorizontal yo'nalishda rivojlanadi.</p>
@@ -321,6 +353,7 @@ const Theory = () => {
             id: 16,
             title: "Musiqiy bezaklar (Melizmlar)",
             desc: "Trill, mordent, gruppetto va forshlag.",
+            videoId: "generic_theory_16",
             content: `
             <h3>Melizmlar</h3>
             <p>Melizmlar — asosiy kuyga ziynat beruvchi mayda notalar va bezaklar.</p>
@@ -337,6 +370,7 @@ const Theory = () => {
             id: 17,
             title: "Musiqiy shakl va janrlar",
             desc: "Qo'shiq, rondo, variatsiya va sonata shakllari.",
+            videoId: "generic_theory_17",
             content: `
             <h3>Musiqiy Shakl</h3>
             <p>Binoning loyihasi bo'lganidek, musiqiy asarning ham qurilish rejasi bor. Bu musiqiy shakldir.</p>
@@ -353,6 +387,7 @@ const Theory = () => {
             id: 18,
             title: "Polifoniya asoslari",
             desc: "Ko'p ovozli musiqa va kontrapunkt.",
+            videoId: "generic_theory_18",
             content: `
             <h3>Homofoniya vs Polifoniya</h3>
             <ul>
@@ -372,6 +407,7 @@ const Theory = () => {
             id: 19,
             title: "Simfonik orkestr",
             desc: "Orkestr guruhlari va cholg'ulari.",
+            videoId: "generic_theory_19",
             content: `
             <h3>Simfonik Orkestr</h3>
             <p>Bu musiqadagi eng katta va boy jamoa. Unda 4 ta asosiy cholg'u guruhi mavjud:</p>
@@ -388,6 +424,7 @@ const Theory = () => {
             id: 20,
             title: "Musiqiy tahlil asoslari",
             desc: "Musiqiy asarni tahlil qilishni o'rganish.",
+            videoId: "generic_theory_20",
             content: `
             <h3>Asarni tahlil qilish</h3>
             <p>Haqiqiy musiqachi asarni shunchaki tinglamaydi, uni "o'qiydi". Tahlil qilishda quyidagilarga e'tibor berish kerak:</p>
@@ -402,6 +439,16 @@ const Theory = () => {
             `
         }
     ];
+
+    const handleCompleteLesson = (lessonId) => {
+        if (lessonId === maxUnlockedLesson && lessonId < lessons.length) {
+            setMaxUnlockedLesson(prev => prev + 1);
+        }
+        // If not last lesson, move to next
+        if (lessonId < lessons.length) {
+            setActiveLesson(lessonId + 1);
+        }
+    };
 
     return (
         <div className="container" style={{ background: '#f4f7f6', minHeight: '100vh' }}>
@@ -456,40 +503,46 @@ const Theory = () => {
                             <IconBookOpen /> {t('lesson')}lar
                         </h3>
                         <div style={{ maxHeight: '80vh', overflowY: 'auto', paddingRight: '5px' }}>
-                            {lessons.map((item) => (
-                                <div
-                                    key={item.id}
-                                    className={`premium-card glass ${activeLesson === item.id ? 'active-lesson' : ''}`}
-                                    style={{
-                                        padding: '20px',
-                                        marginBottom: '15px',
-                                        background: activeLesson === item.id ? 'var(--accent-color)' : 'white',
-                                        color: activeLesson === item.id ? 'white' : '#1e293b',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.3s',
-                                        borderLeft: `5px solid ${activeLesson === item.id ? 'var(--secondary-color)' : 'transparent'}`,
-                                        opacity: activeLesson && activeLesson !== item.id ? 0.7 : 1
-                                    }}
-                                    onClick={() => setActiveLesson(item.id)}
-                                >
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
-                                        <span style={{
-                                            background: activeLesson === item.id ? 'rgba(255,255,255,0.2)' : 'var(--accent-color)',
-                                            color: 'white',
-                                            padding: '3px 10px',
-                                            borderRadius: '15px',
-                                            fontSize: '0.7rem',
-                                            fontWeight: 'bold',
-                                            textTransform: 'uppercase'
-                                        }}>
-                                            {t('day')} {item.id}
-                                        </span>
-                                        {activeLesson === item.id ? <IconPlay /> : null}
+                            {lessons.map((item) => {
+                                const isLocked = item.id > maxUnlockedLesson;
+                                return (
+                                    <div
+                                        key={item.id}
+                                        className={`premium-card glass ${activeLesson === item.id ? 'active-lesson' : ''}`}
+                                        style={{
+                                            padding: '20px',
+                                            marginBottom: '15px',
+                                            background: activeLesson === item.id ? 'var(--accent-color)' : (isLocked ? '#e2e8f0' : 'white'),
+                                            color: activeLesson === item.id ? 'white' : (isLocked ? '#94a3b8' : '#1e293b'),
+                                            cursor: isLocked ? 'not-allowed' : 'pointer',
+                                            transition: 'all 0.3s',
+                                            borderLeft: `5px solid ${activeLesson === item.id ? 'var(--secondary-color)' : 'transparent'}`,
+                                            opacity: isLocked ? 0.6 : (activeLesson && activeLesson !== item.id ? 0.7 : 1),
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            position: 'relative'
+                                        }}
+                                        onClick={() => !isLocked && setActiveLesson(item.id)}
+                                    >
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                                            <span style={{
+                                                background: activeLesson === item.id ? 'rgba(255,255,255,0.2)' : (isLocked ? '#cbd5e1' : 'var(--accent-color)'),
+                                                color: 'white',
+                                                padding: '3px 10px',
+                                                borderRadius: '15px',
+                                                fontSize: '0.7rem',
+                                                fontWeight: 'bold',
+                                                textTransform: 'uppercase'
+                                            }}>
+                                                {t('day')} {item.id}
+                                            </span>
+                                            {isLocked ? <IconLock /> : (item.id < maxUnlockedLesson ? <IconCheck /> : (activeLesson === item.id ? <IconPlay /> : null))}
+                                        </div>
+                                        <h4 style={{ fontSize: '1rem', marginBottom: '5px', lineHeight: '1.4' }}>{item.title}</h4>
+                                        <p style={{ fontSize: '0.8rem', opacity: 0.8, display: '-webkit-box', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{item.desc}</p>
                                     </div>
-                                    <h4 style={{ fontSize: '1rem', marginBottom: '5px', lineHeight: '1.4' }}>{item.title}</h4>
-                                    <p style={{ fontSize: '0.8rem', opacity: 0.8, display: '-webkit-box', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{item.desc}</p>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -511,29 +564,65 @@ const Theory = () => {
                                                 </div>
                                             </div>
 
+                                            {/* Video Player */}
+                                            {lesson.videoId && (
+                                                <div className="video-container" style={{ marginBottom: '30px', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
+                                                    <iframe
+                                                        width="100%"
+                                                        height="400"
+                                                        src={`https://www.youtube.com/embed/${lesson.videoId}`}
+                                                        title={lesson.title}
+                                                        frameBorder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    ></iframe>
+                                                </div>
+                                            )}
+
                                             <div
                                                 className="lesson-body"
                                                 style={{ fontSize: '1.05rem', lineHeight: '1.8', color: '#334155' }}
                                                 dangerouslySetInnerHTML={{ __html: lesson.content }}
                                             />
 
-                                            <div style={{ marginTop: '40px', paddingTop: '30px', borderTop: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between' }}>
-                                                <button
-                                                    onClick={() => setActiveLesson(prev => prev > 1 ? prev - 1 : prev)}
-                                                    disabled={activeLesson === 1}
-                                                    className="action-btn"
-                                                    style={{ opacity: activeLesson === 1 ? 0.5 : 1, cursor: activeLesson === 1 ? 'not-allowed' : 'pointer', background: '#e2e8f0', color: '#475569' }}
-                                                >
-                                                    &larr; Oldingi dars
-                                                </button>
-                                                <button
-                                                    onClick={() => setActiveLesson(prev => prev < lessons.length ? prev + 1 : prev)}
-                                                    disabled={activeLesson === lessons.length}
-                                                    className="login-btn"
-                                                    style={{ width: 'auto', padding: '10px 25px', opacity: activeLesson === lessons.length ? 0.5 : 1, cursor: activeLesson === lessons.length ? 'not-allowed' : 'pointer' }}
-                                                >
-                                                    Keyingi dars &rarr;
-                                                </button>
+                                            <div style={{ marginTop: '40px', paddingTop: '30px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+
+                                                {/* Completion Info */}
+                                                <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
+                                                    <p style={{ fontStyle: 'italic', color: '#64748b', marginBottom: '15px' }}>
+                                                        Keyingi darsga o'tish uchun quyidagi tugmani bosing va videoni to'liq ko'rganingizni tasdiqlang.
+                                                    </p>
+                                                    <button
+                                                        onClick={() => handleCompleteLesson(lesson.id)}
+                                                        className="login-btn"
+                                                        style={{
+                                                            width: 'auto',
+                                                            padding: '12px 30px',
+                                                            background: 'linear-gradient(45deg, var(--accent-color), var(--secondary-color))',
+                                                            boxShadow: '0 4px 15px rgba(var(--accent-rgb), 0.3)',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: '10px'
+                                                        }}
+                                                    >
+                                                        {lesson.id === maxUnlockedLesson && lesson.id < lessons.length ? (
+                                                            <>Darsni yakunlash va Keyingisiga o'tish &rarr;</>
+                                                        ) : (
+                                                            <>Keyingi dars &rarr;</>
+                                                        )}
+                                                    </button>
+                                                </div>
+
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                                                    <button
+                                                        onClick={() => setActiveLesson(prev => prev > 1 ? prev - 1 : prev)}
+                                                        disabled={activeLesson === 1}
+                                                        className="action-btn"
+                                                        style={{ opacity: activeLesson === 1 ? 0.5 : 1, cursor: activeLesson === 1 ? 'not-allowed' : 'pointer', background: '#e2e8f0', color: '#475569' }}
+                                                    >
+                                                        &larr; Oldingi dars
+                                                    </button>
+                                                </div>
                                             </div>
                                         </>
                                     );
@@ -565,9 +654,9 @@ const Theory = () => {
                                     <button
                                         className="login-btn"
                                         style={{ background: 'white', color: 'var(--accent-color)', width: 'auto', padding: '15px 40px', fontWeight: 'bold' }}
-                                        onClick={() => setActiveLesson(1)}
+                                        onClick={() => setActiveLesson(maxUnlockedLesson)}
                                     >
-                                        Kursni boshlash
+                                        Davom ettirish ({maxUnlockedLesson}-dars)
                                     </button>
                                 </div>
                                 <div style={{ position: 'absolute', top: '-10%', right: '-10%', opacity: 0.1 }}>
