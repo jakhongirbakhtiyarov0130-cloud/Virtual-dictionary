@@ -652,25 +652,11 @@ function Home() {
 
                     {/* Featured Term Card - Dynamic Surprise Feature */}
                     {dailyTerm && (
-                        <div className="premium-card glass" style={{
-                            padding: '30px',
-                            marginBottom: '30px',
-                            display: 'flex',
-                            gap: '30px',
-                            alignItems: 'center',
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(251, 191, 36, 0.1))'
-                        }}>
+                        <div className="premium-card glass daily-term-card">
                             <div style={{ flex: 1 }}>
-                                <span style={{
-                                    background: 'var(--secondary-color)',
-                                    padding: '4px 12px',
-                                    borderRadius: '20px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: '700',
-                                    color: '#000'
-                                }}>{t('term_of_the_day')}</span>
-                                <h2 style={{ fontSize: '2.2rem', marginTop: '10px', color: 'var(--accent-color)' }}>{dailyTerm.atama}</h2>
-                                <p style={{ color: '#444', lineHeight: '1.6', fontSize: '1rem', display: '-webkit-box', WebkitLineClamp: '3', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                <span className="daily-term-badge">{t('term_of_the_day')}</span>
+                                <h2 className="daily-term-title">{dailyTerm.atama}</h2>
+                                <p className="daily-term-desc">
                                     {language === 'uz' ? (dailyTerm.manosi_uz || dailyTerm.manosi_ru) :
                                         language === 'kaa' ? (dailyTerm.manosi_kaa || dailyTerm.manosi_uz) :
                                             dailyTerm.manosi_ru}
@@ -679,7 +665,7 @@ function Home() {
                                     <IconBook /> {t('read_more')}
                                 </button>
                             </div>
-                            <div style={{ width: '200px', height: '200px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div className="daily-term-image-box">
                                 {dailyTerm.rasm_url ? (
                                     <img src={dailyTerm.rasm_url} alt={dailyTerm.atama} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 ) : (

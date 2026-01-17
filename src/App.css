@@ -341,19 +341,58 @@ body::before {
 
   .right-sidebar {
     display: none;
-    /* Hide right sidebar on tablets */
+    /* We hide right sidebar from grid, but we can make it appear below if we change structure. 
+       For now, let's keep it hidden on medium screens to avoid clutter, 
+       BUT on mobile (smaller) we will stack everything. */
   }
 }
 
 @media (max-width: 992px) {
   .content-wrapper {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
   }
 
   .sidebar,
   .right-sidebar {
-    display: none;
-    /* Hide both sidebars on mobile, use a different navigation if needed */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    margin-top: 20px;
+    padding-right: 0;
+  }
+
+  .main-content {
+    order: 1;
+  }
+
+  .sidebar {
+    order: 2;
+  }
+
+  .right-sidebar {
+    order: 3;
+  }
+
+  .sidebar-card,
+  .premium-card,
+  .ad-banner {
+    flex: 1 1 100%;
+  }
+
+  /* On slightly larger mobiles, maybe side-by-side widgets? */
+  @media (min-width: 600px) {
+
+    .sidebar-card,
+    .premium-card {
+      flex: 1 1 45%;
+    }
   }
 }
 
@@ -622,19 +661,65 @@ body::before {
   border: none;
 }
 
-/* Mobile Responsive */
+/* Mobile Responsive Header & Layout */
 @media (max-width: 992px) {
-  .content-wrapper {
+  .header {
     grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+    height: auto;
+    position: static;
   }
 
-  .header {
-    grid-template-columns: 1fr 1fr;
+  .header-left {
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title-wrapper {
+    text-align: center;
+  }
+
+  .site-title-box h1 {
+    font-size: 1.4rem;
   }
 
   .search-container {
-    grid-column: 1 / -1;
+    width: 100%;
+    order: 2;
+  }
+
+  .user-nav {
+    width: 100%;
+    justify-content: center;
     order: 3;
+    margin-top: 5px;
+  }
+
+  .main-nav {
+    top: 0;
+    position: sticky;
+  }
+}
+
+@media (max-width: 576px) {
+  .top-bar {
+    display: none;
+  }
+
+  .main-nav li a {
+    padding: 12px 15px;
+    font-size: 0.8rem;
+  }
+
+  .terms-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .term-card {
+    max-width: 100%;
   }
 }
 
@@ -1309,4 +1394,132 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Mobile Responsive Fixes - Step 30 */
+
+/* Main Navigation Horizontal Scroll */
+.main-nav {
+  overflow-x: hidden;
+  /* Hide outer scroll */
+}
+
+.main-nav ul {
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scroll on iOS */
+  padding-bottom: 5px;
+  /* Space for scrollbar if needed */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.main-nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main-nav ul {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.main-nav li a {
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+
+
+/* Daily Term Card Responsive */
+.daily-term-card {
+  padding: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(251, 191, 36, 0.1));
+}
+
+.daily-term-badge {
+  background: var(--secondary-color);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000;
+  display: inline-block;
+}
+
+.daily-term-title {
+  font-size: 2.2rem;
+  margin-top: 10px;
+  color: var(--accent-color);
+  line-height: 1.2;
+}
+
+.daily-term-desc {
+  color: #444;
+  line-height: 1.6;
+  font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.daily-term-image-box {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Alphabet Filter Responsive */
+.alphabet-filter {
+  justify-content: center;
+  padding: 10px;
+  gap: 6px;
+}
+
+.letter-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+}
+
+
+/* Media Queries for Mobile/Tablets */
+@media (max-width: 768px) {
+  .daily-term-card {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .daily-term-image-box {
+    width: 100%;
+    max-width: 250px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  .daily-term-title {
+    font-size: 1.8rem;
+  }
+
+  .top-bar-info {
+    display: none;
+  }
 }
