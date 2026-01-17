@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import Composers from './pages/Composers';
 import Quiz from './pages/Quiz';
 import Theory from './pages/Theory';
+import OMR from './pages/OMR';
+import ActiveQuiz from './pages/ActiveQuiz';
 import FloatingBackground from './components/FloatingBackground';
 import './App.css';
 
@@ -77,6 +79,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Quiz />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/omr"
+            element={
+              <ProtectedRoute>
+                <OMR />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz/active"
+            element={
+              <ProtectedRoute>
+                <ActiveQuiz />
               </ProtectedRoute>
             }
           />

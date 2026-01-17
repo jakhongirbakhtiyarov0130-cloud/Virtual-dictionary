@@ -77,7 +77,8 @@ const translations = {
         theory_subtitle: "20 kunlik maxsus kurs",
         start_course: "Kursni boshlash",
         day: "Kun",
-        lesson: "Dars"
+        lesson: "Dars",
+        omr: "Nota Skaner"
     },
     ru: {
         login: "Вход",
@@ -153,7 +154,8 @@ const translations = {
         theory_subtitle: "20-дневный спецкурс",
         start_course: "Начать курс",
         day: "День",
-        lesson: "Урок"
+        lesson: "Урок",
+        omr: "Сканер Нот"
     },
     kaa: {
         login: "Kiriw",
@@ -229,7 +231,8 @@ const translations = {
         theory_subtitle: "20 kúnlik arnawlı kurs",
         start_course: "Kurstı baslaw",
         day: "Kún",
-        lesson: "Sabaq"
+        lesson: "Sabaq",
+        omr: "Nota Skaner"
     }
 };
 

@@ -89,6 +89,7 @@ const Theory = () => {
                     <li className="active"><Link to="/theory" style={{ color: 'var(--accent-color)' }}>{t('theory')}</Link></li>
                     <li><Link to="/composers">{t('composers')}</Link></li>
                     <li><Link to="/quiz">{t('quiz')}</Link></li>
+                    <li><Link to="/omr">{t('omr')}</Link></li>
                 </ul>
             </nav>
 

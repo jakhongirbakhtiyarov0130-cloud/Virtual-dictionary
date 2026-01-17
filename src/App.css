@@ -1523,3 +1523,88 @@ body::before {
     display: none;
   }
 }
+
+/* Updated Mobile Navigation for full visibility */
+@media (max-width: 576px) {
+  .main-nav ul {
+    flex-wrap: wrap; /* Allow wrapping */
+    white-space: normal; /* Allow text wrap inside if needed, or wrap items */
+    justify-content: center;
+    overflow-x: visible; /* Disable scroll for full view */
+    gap: 10px;
+  }
+
+  .main-nav li {
+    flex: 1 1 auto; /* Grow to fill space */
+    text-align: center;
+  }
+
+  .main-nav li a {
+    padding: 10px 8px;
+    font-size: 0.75rem; /* Smaller font to fit */
+    white-space: nowrap;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.5); /* Slight background to distinguish */
+  }
+
+  .main-nav li.active a {
+    background: rgba(0, 71, 154, 0.1);
+  }
+
+  /* Header adjustments */
+  .header {
+    padding: 10px;
+  }
+  
+  .user-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .lang-select {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Content padding */
+  .content-wrapper {
+    padding: 15px 10px !important;
+  }
+
+  /* Typography sizes */
+  .page-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Quiz/OMR specific */
+  .active-quiz-container .camera-box {
+    width: 100px;
+    height: 75px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .active-quiz-container .quiz-header-bar {
+    font-size: 0.9rem;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .question-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .omr-progress-step {
+    font-size: 0.8rem;
+  }
+}

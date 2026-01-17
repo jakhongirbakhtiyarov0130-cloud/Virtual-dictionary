@@ -329,6 +329,7 @@ const Composers = () => {
                     <li><Link to="/theory">{t('theory')}</Link></li>
                     <li className="active"><Link to="/composers" style={{ color: 'var(--accent-color)' }}>{t('composers')}</Link></li>
                     <li><Link to="/quiz">{t('quiz')}</Link></li>
+                    <li><Link to="/omr">{t('omr')}</Link></li>
                 </ul>
             </nav>
 
